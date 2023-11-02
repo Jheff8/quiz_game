@@ -1,27 +1,69 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import { createRouter, createWebHistory } from "vue-router"
+import store from "@/store"
+
+import HomePage from '../components/pages/HomePage.vue'
+const QuizPage = () => import('../components/pages/QuizPage.vue'),
+  NotFound = () => import('../components/errorHandlers/NotFound.vue'),
+  LoginPage = () => import('../components/pages/LoginPage.vue'),
+  CreateQuiz = () => import('../components/pages/CreateQuiz.vue'),
+  CreateQuestions = () => import('../components/pages/CreateQuestions.vue')
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    redirect: '/home',
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/AboutView.vue");
-    },
+    path: '/home',
+    component: HomePage,
   },
-];
+  {
+    path: "/quiz/:id",
+    component: QuizPage,
+    props: true,
+    beforeEnter: (to, _, next) => {
+      const storedQuestions = store.getters.questions, id = to.params.id
+      if (!storedQuestions[id]) {
+        next('/notfound')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/create',
+    component: CreateQuiz,
+  },
+  {
+    path: '/create/:id',
+    component: CreateQuestions,
+    props: true,
+    beforeEnter: (_, from, next) => {
+      if (from.path !== '/create') {
+        next('/create')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/login',
+    component: LoginPage
+  },
+  {
+    path: '/:notFound(.*)',
+    name: 'notFoundPage',
+    props: true,
+    component: NotFound,
+  },
+
+]
+
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
-});
+})
 
-export default router;
+
+export default router
