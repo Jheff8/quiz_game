@@ -1,7 +1,5 @@
 <template>
   <the-header></the-header>
-
-  <!-- <CreateQuiz></CreateQuiz> -->
   <main>
     <router-view v-slot="slotProps">
         <transition name="route" mode="out-in">
@@ -35,19 +33,13 @@ export default {
 
 <style>
 :root {
-  /* gostei desse */
   --text-color: #e6f6fe;
   --secondary-text-color: rgb(255,255,255, .6);
-
-
   --primary-color: #4558BA;
   --secondary-color: #1A1A19;
   --accent-color: #f6d013;
-
   --background-color: #1b1b1b;
-  --secondary-background-color:rgb(30, 30, 35);
-
-  
+  --secondary-background-color:rgb(30, 30, 35);  
 }
 
 .text-color{
@@ -88,40 +80,19 @@ export default {
 }
 
 body {
-  
-  background-color: var(--background-color);
   max-width: 100vw;
   min-height: 100vh;
-
-  
-  /* padding-bottom: 10rem; */
+  background-color: var(--background-color);
 }
-
-/* ::-webkit-scrollbar {
-  width: 12px;
-} */
-
-
-
-header{ 
-
-}
-
 section{
   height: calc(100vh - 58px);
   padding-top: 30px;
 }
-
-
-
-
 .router-enter-from {
   opacity: 0;
-  /* transform: translateX(-10%); */
 }
 .route-leave-to {
   opacity: 0;
-  /* transform: translateY(10%); */
 }
 .route-enter-active {
   transition: all .5s ease-out;
@@ -129,14 +100,11 @@ section{
 .route-leave-active {
   transition: all .5s ease-out;
 }
-
 .route-enter-to,
 .route-leave-from {
   opacity: 1;
-  /* transform: translate(0); */
+ 
 }
-
-
 @keyframes fade{
   from {
     opacity: 0;
@@ -146,7 +114,5 @@ section{
     transform: translate(-50%, -50%) scale(1);
   }
 }
-
-
 </style>
 

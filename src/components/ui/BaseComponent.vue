@@ -4,7 +4,6 @@
             :secondaryText="`${percentageOfHits}% of the questions were answered correctly.`"
             :continueBtnText="continueButtonText" :showSecondaryButton="true" @continue="startQuiz" @close="closeDialog">
         </base-dialog>
-        <!-- <slot></slot> -->
         <div :class="['image-block']"
             :style="{ backgroundImage: `url(${require(`../../assets/${imageName}`)})`, backgroundPosition: imagePosition }">
         </div>

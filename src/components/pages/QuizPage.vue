@@ -5,8 +5,6 @@
             :closeBtnText="dialogCloseButtonText" :titleColor="dialogTitleColor" @close="closeOrHome"
             @continue="playAgain"></base-dialog>
         <div class="row justify-content-center align-items-center m-auto my-4">
-            <!-- decide this -->
-            <!-- <h1 class="lead text-center m-0">{{ id }}</h1> -->
             <span class="text-center m-auto text-color  mb-2 d-block">Question: {{ questionIndex }}/15</span>
             <div class="m-auto container question-container d-flex align-items-center mb-4">
                 <p class="m-auto text-center text-colo lead">

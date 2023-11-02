@@ -37,20 +37,10 @@
                     <div style="margin-bottom: calc(.8rem * 2);">
                         <the-gallery :showGallery="isGalleryVisible" :preSelectedImage="selectedImage.value"
                             @image="setImageName" @close="closeGallery"></the-gallery>
-                        <!-- <button type="button" :class="['btn', 'border', 'text-color','btn-select-image', {'active-image': selectedImage.value}, {'border-danger text-danger': !selectedImage.isValid}]" @click="showGallery">
-                            {{ selectedImage.value ? 'Change image' : 'Select an image' }}
-                        </button> -->
                         <base-button type="button" :secondaryButton="true" :accentColor="!!selectedImage.value"
                             :dangerButton="!selectedImage.isValid"
                             :class="['btn-select-image', { 'active-image': selectedImage.value }]" @click="showGallery">{{
                                 loadSelectImageText }}</base-button>
-                        <!-- 
-                            fazer uma nova opção de botao ou modificar o botao "outline".
-                            Importante: mudar o nome de "outlineButton" pra "secondaryButton".
-                            Se quiser criar um botão outline, deixa o nome de "outline", nao precisa especificar com o "button"
-    
-                            Good Luck!!!
-                         -->
                     </div>
                     <base-button type="submit" class="mt-5" @click.prevent="formValidity">Add Quiz</base-button>
                 </form>

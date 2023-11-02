@@ -20,7 +20,6 @@
                             placeholder="Type your question"></textarea>
                     </div>
                     <div class="col-12 col-sm-6">
-                        <!-- <div class="input-box"> -->
                         <label for="correctAnswer"
                             :class="['form-label', { 'label-font-color': correctAnswerIsFocused }, { 'text-danger': !correctAnswer.isValid }]">Correct
                             Answer</label>
@@ -29,7 +28,6 @@
                             v-model="correctAnswer.value" @blur="clearValidity('correctAnswer')"
                             @focus="correctAnswerIsFocused = true" placeholder="Type the correct answer"
                             ref="correctAnswerInput">
-                        <!-- </div> -->
                     </div>
                     <div class="mt-4">
                         <label for="wrongAnswer"
