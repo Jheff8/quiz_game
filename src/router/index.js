@@ -4,7 +4,6 @@ import store from "@/store"
 import HomePage from '../components/pages/HomePage.vue'
 const QuizPage = () => import('../components/pages/QuizPage.vue'),
   NotFound = () => import('../components/errorHandlers/NotFound.vue'),
-  LoginPage = () => import('../components/pages/LoginPage.vue'),
   CreateQuiz = () => import('../components/pages/CreateQuiz.vue'),
   CreateQuestions = () => import('../components/pages/CreateQuestions.vue')
 
@@ -47,10 +46,6 @@ const routes = [
     }
   },
   {
-    path: '/login',
-    component: LoginPage
-  },
-  {
     path: '/:notFound(.*)',
     name: 'notFoundPage',
     props: true,
@@ -58,7 +53,6 @@ const routes = [
   },
 
 ]
-
 
 const router = createRouter({
   history: createWebHistory(),
