@@ -214,6 +214,10 @@ export default {
                 name: quizInfo.name.toLowerCase(),
                 data: questions
             })
+
+            this.redirectToHome()
+        },
+        redirectToHome(){
             this.$router.replace('/home')
         },
         clearValidity(input) {

@@ -19,8 +19,9 @@ export default {
             isLoading: false
         }
     },
-    created() {
+    mounted() {
         this.fetchQuizzes()
+        this.$store.commit('showHeader', true)
     },
     computed: {
         loadQuizzes() {
@@ -32,15 +33,13 @@ export default {
             this.isLoading = true
             try {
                 await this.$store.dispatch('loadQuizzes')
+                await this.$store.dispatch('loadQuestions')
             } catch {
                 console.error('Something went wrong')
             }
             this.isLoading = false
         }
     },
-    mounted() {
-        this.$store.commit('showHeader', true)
-    }
 }
 
 </script>

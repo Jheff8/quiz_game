@@ -121,9 +121,11 @@ export default {
             this.$store.commit('showHeader', false)
 
             this.resetInputs()
+            this.redirectToQuestions(captalizedName.toLowerCase())
 
-            this.$router.replace(`/create/${captalizedName.toLowerCase()}`)
-
+        },
+        redirectToQuestions(pageName){
+            this.$router.replace(`/create/${pageName}`)
         },
         resetInputs() {
             this.inputName.value = ''
