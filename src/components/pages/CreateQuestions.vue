@@ -138,6 +138,19 @@ export default {
             this.$refs.questionInput.focus()
         },
         formValidity(addToStore = false) {
+            if (this.hasEmptyInputs() || this.hasEqualInputs()) {
+                return
+            }
+            if (this.allQuestions.length == 0) {
+                this.dialogTitle = 'Are you sure you want to continue ?'
+                this.secondaryText = 'You will not be able to change it later.'
+                this.isSecondaryButtonVisible = true
+                this.isDialogVisible = true
+                return
+            }
+            this.addQuestion(addToStore)
+        },
+        hasEmptyInputs() {
             let isFilled = false
             for (let i in this.wrongAnswer) {
                 if (this.wrongAnswer[i].value !== '') {
@@ -160,16 +173,50 @@ export default {
                     this.wrongAnswer[1].isValid = false
                 }
 
-                return
+                return true
             }
-            if (this.allQuestions.length == 0) {
-                this.dialogTitle = 'Are you sure you want to continue ?'
-                this.secondaryText = 'You will not be able to change it later.'
-                this.isSecondaryButtonVisible = true
+        },
+        hasEqualInputs() {
+            let isRepeated = false
+
+            for (let i in this.wrongAnswer) {
+                if (this.questionInput.value == this.wrongAnswer[i].value) {
+                    isRepeated = true
+                }
+            }
+            if (this.questionInput.value == this.correctAnswer.value) {
+                isRepeated = true
+            }
+
+            if (isRepeated) {
+                this.dialogTitle = "The question cannot be equal to the answers."
+                this.secondaryText = ''
+                this.isSecondaryButtonVisible = false
                 this.isDialogVisible = true
-                return
+
+                return true
             }
-            this.addQuestion(addToStore)
+
+            for (let i in this.wrongAnswer) {
+                for (let j = Number(i) + 1; j <= 4; j++) {
+                    if (this.wrongAnswer[i].value !== '' && this.wrongAnswer[j].value !== '') {
+                        if (this.wrongAnswer[i].value == this.wrongAnswer[j].value) {
+                            isRepeated = true
+                        }
+                    }
+                }
+                if (this.wrongAnswer[i].value == this.correctAnswer.value) {
+                    isRepeated = true
+                }
+            }
+            if (isRepeated) {
+                this.dialogTitle = "The answers must be different."
+                this.secondaryText = ''
+                this.isSecondaryButtonVisible = false
+                this.isDialogVisible = true
+
+                return true
+            }
         },
         clearInputs() {
             this.correctAnswer.value = ''
@@ -217,7 +264,7 @@ export default {
 
             this.redirectToHome()
         },
-        redirectToHome(){
+        redirectToHome() {
             this.$router.replace('/home')
         },
         clearValidity(input) {
@@ -483,4 +530,5 @@ textarea.filled+.label-font-color {
     small {
         font-size: 30px;
     }
-}</style>
+}
+</style>
