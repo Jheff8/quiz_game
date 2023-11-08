@@ -17,7 +17,7 @@
                     {{ answers }}
                 </button>
             </div>
-            <base-button class="mt-5 mb-4" @click="verifyAnswer">{{ loadButtonText }}</base-button>
+            <base-button class="mt-5 mb-4" @click="verifyAnswer" id="mainButton" ref="baseButton">{{ loadButtonText }}</base-button>
         </div>
     </section>
 </template>
@@ -154,9 +154,14 @@ export default {
                 this.isDialogVisible = true
                 return
             }
+            const mainButton = this.$refs.baseButton.$refs.button
+            if (mainButton.classList.contains('unclickable')) {
+                return 
+            }
+            mainButton.classList.add('unclickable')
             let correctAnswerElement
             const answerElements = document.querySelectorAll('.answer-containers')
-
+            
             answerElements.forEach(element => {
                 element.disabled = true
                 if (element.innerText == this.currentQuestion.correctAnswer) {
@@ -170,6 +175,7 @@ export default {
             }
             correctAnswerElement.classList.add('correct-answer-styling')
             setTimeout(() => {
+                mainButton.classList.remove('unclickable')
                 answerElements.forEach(element => {
                     element.disabled = false
                 })
