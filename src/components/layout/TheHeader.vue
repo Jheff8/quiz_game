@@ -1,10 +1,10 @@
 <template>
-    <header :class="['dominant-bg', { 'hide-header': isHeaderHidden }]">
+    <header :class="['dominant-bg', { 'hide-header': isHeaderHidden }]" ref="header">
         <nav :class="['container-fluid', 'd-flex', 'align-items-center', 'justify-content-end']">
             <router-link to="/home" title="Go to home page" class="navbar-brand">
                 <img src="../../assets/quizduel-svgrepo-com.svg" alt="Page's logo" class="navbar-brand-icon">
             </router-link>
-            <ul class="d-flex align-items-center justify-content-center gap-4 m-0 p-0">
+            <ul class="d-flex align-items-center justify-content-center gap-2 gap-sm-3 gap-xxl-4 m-0 p-0">
                 <li class="lead text-color" title="Go to home page">
                     <router-link to="/home" class="nav text-secondary" :tabindex="isHeaderHidden">home</router-link>
                 </li>
@@ -28,9 +28,10 @@ export default {
 
 <style scoped>
 header {
-    padding: 1rem;
+    position: fixed;
+    padding: .8rem 1rem;
     width: 100%;
-    min-height: 51.2px !important;
+    /* min-height: 51.2px !important; */
     background-color: var(--background-color);
     border-bottom: 1px solid rgb(255, 255, 255, .1);
     z-index: 99;
@@ -45,7 +46,6 @@ header {
 nav router-link:not(.navbar-brand),
 nav a:not(.navbar-brand) {
     position: relative;
-    font-size: 1.3rem;
     font-weight: 400;
     text-decoration: none;
     border-bottom: 0;
@@ -61,7 +61,6 @@ router-link:focus-visible {
 
 ul {
     max-width: 50vw;
-    font-size: .8rem;
     list-style: none;
 }
 
@@ -76,7 +75,7 @@ a:not(.navbar-brand)::before {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: 2px;
+    bottom: 3px;
     transform: translate(-50%, 0);
     width: 0;
     height: .8px;
@@ -97,13 +96,14 @@ router-link:not(.navbar-brand) {
 
 .navbar-brand {
     position: absolute;
-    left: 1.5rem;
-    top: 1rem;
+    left: 1rem;
+    top: 50%;
+    transform: translate(0, -50%);
     transition: .3s ease-out;
 }
 
 .navbar-brand-icon {
-    height: 2.3rem;
+    height: 35px;
     transition: .3s ease-out;
 }
 
@@ -112,7 +112,22 @@ router-link:not(.navbar-brand) {
 }
 
 .navbar-brand:active {
-    transform: scale(.8);
+    scale: .85;
+}
+
+@media (max-width: 400px) {
+    header {
+        padding: .6rem .2rem;
+    }
+
+    .navbar-brand {
+        left: .8rem;
+    }
+
+    .navbar-brand-icon {
+        height: 28px;
+    }
+
 }
 
 @media (hover: none) {
@@ -135,4 +150,24 @@ router-link:not(.navbar-brand) {
     .navbar-brand-icon:hover {
         filter: none !important;
     }
+}
+
+@media (min-width: 769px) {
+
+    router-link:not(.navbar-brand)::before,
+    a:not(.navbar-brand)::before {
+        height: 1.2px !important;
+    }
+}
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+    .navbar-brand-icon {
+        height: 58px !important;
+    }
+
+    router-link:not(.navbar-brand)::before,
+    a:not(.navbar-brand)::before {
+        height: 3px !important;
+    }
+
 }</style>

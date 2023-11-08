@@ -4,17 +4,19 @@
             :showSecondaryButton="isSecondaryButtonVisible" :continueBtnText="dialogContinueButtonText"
             :closeBtnText="dialogCloseButtonText" :titleColor="dialogTitleColor" @close="closeOrHome"
             @continue="playAgain"></base-dialog>
-        <div class="row justify-content-center align-items-center m-auto my-4">
-            <span class="text-center m-auto text-color  mb-2 d-block">Question: {{ questionIndex }}/15</span>
+        <div class="row justify-content-center align-items-center m-auto my-4 d-block">
+            <span class="text-center m-auto text-color mb-2 d-block">Question: {{ questionIndex }}/15</span>
             <div class="m-auto container question-container d-flex align-items-center mb-4">
                 <p class="m-auto text-center text-colo lead">
                     {{ getQuestion }}
                 </p>
             </div>
-            <button class="container m-auto d-block mb-2 text-center text-color answer-containers lead"
-                v-for="answers in getAnswers" :key="answers" type="button" @click="activeButton($event)">
-                {{ answers }}
-            </button>
+            <div class="answers-wrap row m-auto">
+                <button class="container m-auto d-block mb-2 mb-lg-3  text-center text-color answer-containers lead"
+                    v-for="answers in getAnswers" :key="answers" type="button" @click="activeButton($event)">
+                    {{ answers }}
+                </button>
+            </div>
             <base-button class="mt-5 mb-4" @click="verifyAnswer">{{ loadButtonText }}</base-button>
         </div>
     </section>
@@ -116,10 +118,10 @@ export default {
         shuffleArray(array) {
             let currentIndex = array.length, randomIndex
             while (currentIndex > 0) {
-                // Pick a remaining element.
+                // Pick a remaining element
                 randomIndex = Math.floor(Math.random() * currentIndex)
                 currentIndex--
-                // And swap it with the current element.
+                // And swap it with the current element
                 [array[currentIndex], array[randomIndex]] =
                     [array[randomIndex], array[currentIndex]]
             }
@@ -224,8 +226,8 @@ export default {
             return listOfAnswers
         },
         loadButtonText() {
-            return this.questionIndex < 15 ? 'Next' : 'Finish Quiz'
-        },
+            return this.questionIndex < 15 ? 'Submit Answer' : 'Finish Quiz'
+        }
     }
 }
 </script>
@@ -248,23 +250,23 @@ section {
 
 span {
     color: rgba(255, 255, 255, .6) !important;
+    font-size: medium !important;
 }
 
 .row {
     width: 95vw !important;
-    max-width: 1300px !important;
+    max-width: 1500px !important;
 }
 
 .container {
     background-color: var(--secondary-background-color);
     border: 1px solid rgb(255, 255, 255, .1);
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 .question-container {
     position: relative;
     padding: 1.5rem;
-    padding-top: 1.6rem;
     width: 1000px;
     max-width: 85vw;
     color: #fff !important;
@@ -297,7 +299,7 @@ span {
 }
 
 .answer-containers:active {
-    scale: .85;
+    transform: scale(.85);
 }
 
 .active {
@@ -318,6 +320,12 @@ button.wrong-answer-styling {
     outline: 2px solid var(--bs-danger) !important;
 }
 
+@media (hover: none) {
+    .answer-containers:hover {
+        transform: scale(none) translateY(0) !important;
+    }
+}
+
 @media (max-width: 768px) {
     .question-container p {
         text-align: left !important;
@@ -325,11 +333,37 @@ button.wrong-answer-styling {
     }
 }
 
-@media (hover: none) {
-    .answer-containers:hover {
-        transform: scale(1) translateY(0) !important;
+@media (min-width: 1440px) and (min-height: 1200px) {
+    .question-container {
+        padding: 3rem 2rem;
+        width: 1800px;
     }
 
+    .row {
+        max-width: 1800px !important;
+    }
 
+    .container {
+        border-radius: 16px;
+    }
+
+    .answer-containers {
+        padding: 3rem 2rem;
+        font-size: 42px;
+        width: 1400px;
+        margin-top: 1rem !important;
+    }
+
+    button {
+        max-width: unset;
+    }
+
+    p {
+        font-size: 52px !important;
+    }
+
+    span {
+        font-size: xx-large !important;
+    }
 }
 </style>

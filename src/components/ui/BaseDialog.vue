@@ -4,10 +4,10 @@
         <transition name="dialog">
             <div class="dialog" v-show="isDialogOpen">
                 <div class="m-auto text-center">
-                    <h1 :class="['lead', 'mb-0', titleColorClass]"> {{ title }}</h1>
+                    <h2 :class="['lead', 'mb-0', titleColorClass]"> {{ title }}</h2>
                     <p class="text-secondary">{{ secondaryText }}</p>
                 </div>
-                <div class="row mt-5 gap-3">
+                <div class="row buttons mt-5 gap-3 row-12">
                     <base-button :focusedButton="true" class="col" v-show="shouldShowSecondaryButton"
                         @click="tryContinue">{{ loadContinueButtonText }}</base-button>
                     <base-button :secondaryButton="showSecondaryButton" class="col" @click="close">{{ loadCloseButtonText
@@ -73,7 +73,7 @@ export default {
     opacity: 1;
     padding: 1rem 1.5rem;
     width: 600px;
-    max-width: 80vw;
+    max-width: 90vw;
     background-color: var(--secondary-background-color);
     border: 1px solid rgb(64, 67, 68);
     border-radius: 10px;
@@ -81,14 +81,13 @@ export default {
     z-index: 999;
 }
 
-h1.lead {
+h2.lead {
     font-weight: 600;
-    font-size: 2rem;
     hyphens: auto;
 }
 
 p {
-    font-size: 1rem;
+    font-size: 16px !important;
 }
 
 button {
@@ -101,4 +100,35 @@ button {
 
 .dialog-leave-active {
     animation: fade .3s ease-out reverse;
-}</style>
+}
+
+span {
+    font-size: large !important;
+}
+
+@media (max-width: 430px) {
+    .buttons button {
+        flex: 0 auto !important;
+        width: 80vw !important;
+    }
+}
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+    .dialog {
+        width: 1300px !important;
+        padding: 2rem 3rem !important;
+    }
+
+    p {
+        font-size: 32px !important;
+    }
+
+    h2 {
+        font-size: 85.37px !important;
+    }
+
+    .buttons button {
+        margin-top: 2.5rem !important;
+    }
+}
+</style>

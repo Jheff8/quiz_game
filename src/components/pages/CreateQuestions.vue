@@ -65,7 +65,7 @@
                     <span class="row justify-content-center align-items-center m-auto"
                         style="margin-top: calc(1.5rem * 2) !important;">
                         <base-button type="submit" @click.prevent="formValidity(false)" class="col-auto mb-2"
-                            v-if="amountOfQuestion < 14">Next Question</base-button>
+                            v-if="amountOfQuestion < 14">Next</base-button>
                         <base-button type="submit" class="col-auto" v-else @click.prevent="formValidity(true)">Create
                             Quiz</base-button>
                     </span>
@@ -109,7 +109,6 @@ export default {
             this.wrongAnswer[key].isVisible = allVisibleInput[key]
 
         }
-
     },
     mounted() {
         this.$store.commit('showHeader', true)
@@ -279,7 +278,7 @@ div.row {
 
 small {
     font-weight: 200;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .addAnswer {
@@ -315,11 +314,6 @@ button:has(.addAnswer):focus-visible>.addAnswer {
     border-color: var(--accent-color);
     color: var(--accent-color);
     scale: 1.09;
-}
-
-h1.lead {
-    font-weight: 700;
-    font-size: 2.5rem;
 }
 
 input,
@@ -463,6 +457,26 @@ textarea.filled+.label-font-color {
         border-color: var(--secondary-text-color);
         color: var(--secondary-text-color);
     }
-
 }
-</style>
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+    .addAnswer {
+        width: 90px;
+        height: 90px;
+        border-width: 2px;
+        font-size: 70px;
+    }
+
+    .container {
+        width: 1800px;
+        padding: 3rem 2rem;
+    }
+
+    button {
+        max-width: unset;
+    }
+
+    small {
+        font-size: 30px;
+    }
+}</style>

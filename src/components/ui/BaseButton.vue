@@ -22,7 +22,7 @@ export default {
 button {
     position: relative;
     display: block;
-    padding: .4rem 0;
+    padding: .6rem 0;
     margin: auto;
     width: 65%;
     max-width: 400px;
@@ -107,9 +107,12 @@ button:not(.secondary-button):not(.accent-color):not(.outline):not(:disabled):ho
 button:disabled {
     opacity: .6;
     background-color: #262626 !important;
-    text-decoration: line-through;
     color: var(--text-color);
     outline: none !important;
+}
+
+button:disabled span {
+    text-decoration: line-through;
 }
 
 button:disabled:active {
@@ -128,4 +131,28 @@ button:focus-visible {
         box-shadow: none !important;
         transform: scale(1) translateY(0) !important;
     }
-}</style>
+}
+
+@media (max-width: 400px) {
+    button span {
+        font-size: 18px !important;
+    }
+}
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+    button {
+        padding: 1rem 0 !important;
+        max-width: unset;
+    }
+
+    button span {
+        font-size: 36px !important;
+        font-weight: 400;
+    }
+
+    button:not(.secondary-button) span {
+        font-weight: 500;
+    }
+
+}
+</style>

@@ -206,11 +206,11 @@ section {
 
 .container {
     padding: 2rem 1rem;
-    width: 1000px;
-    max-width: 85vw;
+    max-width: 900px;
+    width: 85vw;
     background-color: var(--secondary-background-color);
     border: 1px solid rgb(255, 255, 255, .1);
-    border-radius: 1rem;
+    border-radius: 16px;
 }
 
 form {
@@ -229,20 +229,17 @@ small {
     margin: auto;
     font-weight: 200;
     font-size: 1rem;
-    /* color: gray; */
 }
 
 h1 {
     margin-bottom: 3.5rem;
-    font-weight: 700;
-    font-size: 3rem;
-    letter-spacing: -1px;
     color: var(--primary-color) !important;
 }
 
 input {
-    padding-top: .6rem;
-    padding-bottom: .6rem;
+    padding: .6rem .625rem;
+    /* padding-top: .6rem;
+    padding-bottom: .6rem; */
     border-color: rgba(255, 255, 255, .1);
     transition: all .5s ease-out !important;
 }
@@ -269,7 +266,7 @@ input:focus {
 
 .input-box label {
     position: absolute;
-    left: 10px;
+    left: .625rem;
     top: 50%;
     transform: translate(0, -50%);
     transition: .5s ease-out;
@@ -293,10 +290,7 @@ input.filled+.label-font-color {
     cursor: pointer;
 }
 
-.input-container input:focus {
-    margin-top: 2.5rem;
-}
-
+.input-container input:focus,
 .input-container input.filled {
     margin-top: 2.5rem;
 }
@@ -310,7 +304,9 @@ input.border-danger+.label-font-color {
 }
 
 .btn-select-image {
-    max-width: 170px;
+    width: max-content;
+    padding-right: 10px;
+    padding-left: 10px;
     margin: 0;
     transition: .3s ease-out;
 }
@@ -339,4 +335,53 @@ input.border-danger+.label-font-color {
     opacity: 1;
     scale: 1;
 }
-</style>
+
+@media (min-width: 769px) {
+
+    .input-container input.filled,
+    .input-container input:focus {
+        margin-top: 3rem;
+    }
+
+    .input-container {
+        margin-bottom: 1rem !important;
+    }
+}
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+
+    .input-container input.filled,
+    .input-container input:focus {
+        margin-top: 5.5rem;
+    }
+
+    h1 {
+        margin-bottom: 7rem;
+    }
+
+    .input-box label {
+        left: 1.5rem;
+    }
+
+    .input-container {
+        margin-top: 2rem;
+        margin-bottom: 2rem !important;
+    }
+
+    .container {
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        max-width: 1800px;
+
+    }
+
+    .btn-select-image {
+        width: 340px !important;
+        margin-bottom: 5em !important;
+    }
+
+    small {
+        font-size: 35px;
+        font-weight: 300;
+    }
+}</style>

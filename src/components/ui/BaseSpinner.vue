@@ -50,4 +50,12 @@
     100% {
         clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
     }
-}</style>
+}
+
+@media (min-width: 1025px) {
+    .loader {
+        width: 55px;
+        height: 55px;
+    }
+}
+</style>

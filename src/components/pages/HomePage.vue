@@ -51,12 +51,13 @@ section {
 
 .row {
     width: 95vw !important;
-    max-width: 1300px !important;
+    margin-top: 1.5rem !important;
+    /* max-width: 1200px !important; */
 }
 
 button {
-    padding: .3rem 0 !important;
-    width: 110px !important;
+    padding: .4rem 0 !important;
+    width: 100px !important;
     margin: unset !important;
     margin-left: 1.5rem !important;
 }
@@ -66,5 +67,11 @@ div.spinner {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+    button {
+        width: 250px !important;
+    }
 }
 </style>

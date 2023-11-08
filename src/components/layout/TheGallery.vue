@@ -5,13 +5,13 @@
     <div class="backdrop" @click="close" v-show="showGallery"></div>
     <Transition name="gallery">
         <div class="container" v-show="showGallery">
-            <h1 class="lead text-center mt-2 text-color mb-2">Select an Image</h1>
+            <h2 class="lead text-center mt-2 text-color mb-2">Select an Image</h2>
             <div class="gallery row py-3 align-items-center justify-content-center gap-3">
                 <button type="button" v-for="image in allImagesName" :key="image.name" :id="image.name" :ref="image.name"
-                    :class="['image-content', 'btn', 'col', 'col-6', 'col-md-4', 'col-lg-3', { 'selected': image.isActive }]"
+                    :class="['image-content', 'btn', 'col-5', 'col-md-4', 'col-lg-3', { 'selected': image.isActive }]"
                     @click="selectImage($event)" :style="'background-position:' + image.position" tabindex="1"></button>
             </div>
-            <div class="row align-items-center justify-content-center gap-3 mt-4 mb-3">
+            <div class="buttons row align-items-center justify-content-center gap-3 mt-4 mb-3">
                 <base-button type="button" class=" col" @click="verifySelectedImage" tabindex="1">Confirm</base-button>
                 <base-button type="button" class="col" :secondaryButton="true" @click="close"
                     tabindex="1">Close</base-button>
@@ -159,26 +159,31 @@ h1.lead {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 0 2rem;
     width: 90vw;
     max-width: 800px;
-    max-height: 90%;
+    max-height: 98vh;
     background-color: var(--secondary-background-color);
     border: none;
-    border-radius: 15px;
+    border-radius: 16px;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
     z-index: 999;
 }
 
-.gallery {
-    padding: 0 .7rem;
-    height: 500px !important;
+.buttons {
+    padding-block-end: 5px;
+}
+
+div.gallery {
+    height: 60vh !important;
+    max-height: 50% !important;
     overflow-y: auto !important;
 }
 
 .image-content {
     padding: 0;
     margin: .1rem 0;
+    min-width: 50px;
     width: 150px;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -204,7 +209,7 @@ h1.lead {
 }
 
 .image-content.selected {
-    border: 3.5px solid var(--accent-color);
+    border: 4px solid var(--accent-color);
 }
 
 ::-webkit-scrollbar {
@@ -285,8 +290,6 @@ h1.lead {
     background-repeat: no-repeat;
 }
 
-
-
 .gallery-enter-active {
     animation: fade .4s ease-out;
 }
@@ -304,4 +307,62 @@ h1.lead {
         scale: 1 !important;
     }
 }
-</style>
+
+@media (max-width: 390px) {
+    .container {
+        padding: 0 1.2rem !important;
+        padding-top: .5rem !important;
+    }
+}
+
+@media (max-height: 390px) {
+    .buttons {
+        margin-top: 1rem !important;
+    }
+}
+
+@media (max-height: 340px) {
+    .buttons {
+        margin-top: .5rem !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    ::-webkit-scrollbar {
+        width: 16px;
+    }
+
+    .image-content.selected {
+        border-width: 6px
+    }
+}
+
+@media (min-width: 1440px) and (min-height: 1200px) {
+    .container {
+        max-width: 1800px !important;
+        padding: 3rem 2rem;
+        border-radius: 20px !important;
+    }
+
+    .image-content {
+        width: 400px;
+        margin: .5rem .2rem;
+    }
+
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    .image-content.selected {
+        border-width: 8px;
+    }
+
+    button {
+        max-width: unset !important;
+    }
+
+    .buttons {
+        margin: 3rem auto 1rem auto !important;
+    }
+
+}</style>
