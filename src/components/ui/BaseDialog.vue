@@ -112,6 +112,11 @@ span {
         width: 80vw !important;
     }
 }
+@media (min-width: 1025px) {
+    .dialog {
+        width:  800px !important;
+    }
+}
 
 @media (min-width: 1440px) and (min-height: 1200px) {
     .dialog {
