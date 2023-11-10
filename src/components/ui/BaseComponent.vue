@@ -39,8 +39,10 @@ export default {
         }
     },
     methods: {
-        startQuiz() {
-            this.$router.replace(`/quiz/${this.name.toLowerCase()}`)
+        async startQuiz() {
+            this.$store.commit('updateLoadingValue', true)
+            await this.$router.replace(`/quiz/${this.name.toLowerCase()}`)
+            this.$store.commit('updateLoadingValue', false)
         },
         showLastScore() {
             this.isDialogVisible = true

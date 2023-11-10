@@ -20,8 +20,8 @@ const routes = [
     path: "/quiz/:id",
     component: QuizPage,
     props: true,
-    beforeEnter: (to, _, next) => {
-      store.dispatch('loadQuestions')
+    beforeEnter: async (to, _, next) => {
+      await store.dispatch('loadQuestions')
       const storedQuestions = store.getters.questions, id = to.params.id
       if (!storedQuestions[id]) {
         next('/notfound')

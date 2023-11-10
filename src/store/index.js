@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
+      isLoading: false,
       showHeader: true,
       quizzes: [],
       questions: {}
@@ -15,16 +16,22 @@ export default createStore({
     },
     isHeaderVisible(state) {
       return state.showHeader
+    },
+    isOnLoad(state) {
+      return state.isLoading
     }
   },
   mutations: {
+    updateLoadingValue(state, payload) {
+      state.isLoading = payload
+    },
     setQuizzes(state, payload) {
       state.quizzes = payload
     },
-    addNewQuiz(state, payload){
+    addNewQuiz(state, payload) {
       state.quizzes.push(payload)
     },
-    setQuestions(state, payload){
+    setQuestions(state, payload) {
       state.questions[payload.name] = payload.questions
     },
     showHeader(state, payload) {
@@ -32,7 +39,7 @@ export default createStore({
     }
   },
   actions: {
-    async loadQuizzes(context){
+    async loadQuizzes(context) {
 
       const response = await fetch(
         `https://quiz-fa99f-default-rtdb.firebaseio.com/quizzes.json`

@@ -74,6 +74,12 @@ export default {
     },
     methods: {
         formValidity() {
+            if (this.hasEmptyInputs() || this.isNameInUse() || this.isImageNotSelected() || this.hasEqualInputs()){
+                return
+            }
+            this.addQuiz()
+        },
+        hasEmptyInputs() {
             if (this.inputName.value == '' || this.inputDescription.value == '') {
                 this.dialogTitle = 'You must fill the empty gaps to proceed.'
                 this.secondaryText = ''
@@ -85,8 +91,28 @@ export default {
                 if (this.inputDescription.value == '') {
                     this.inputDescription.isValid = false
                 }
-                return
+                return true
             }
+        },
+        isImageNotSelected() {
+            if (this.selectedImage.value == '') {
+                this.dialogTitle = 'You must select an image to proceed.'
+                this.secondaryText = ""
+                this.selectedImage.isValid = false
+                this.isDialogVisible = true
+                return true
+            }
+        },
+        hasEqualInputs(){
+            if (this.inputName.value == this.inputDescription.value) {
+                this.dialogTitle = 'Quiz name and description cannot be equal.'
+                this.secondaryText = ""
+                this.selectedImage.isValid = false
+                this.isDialogVisible = true
+                return true
+            }
+        },
+        isNameInUse() {
             if (this.inputName.value !== '') {
                 const allQuizzes = this.$store.getters.quizzesList
                 for (let i in allQuizzes) {
@@ -94,19 +120,10 @@ export default {
                     if (allQuizzes[i].name == name.charAt(0).toUpperCase() + name.slice(1)) {
                         this.isNameAlreadyInUse = true
                         this.inputName.isValid = false
-                        return
+                        return true
                     }
                 }
             }
-            if (this.selectedImage.value == '') {
-                this.dialogTitle = 'You must select an image to proceed.'
-                this.secondaryText = ""
-                this.selectedImage.isValid = false
-                this.isDialogVisible = true
-                return
-            }
-
-            this.addQuiz()
         },
         addQuiz() {
             const captalizedName = this.inputName.value.charAt(0).toUpperCase() + this.inputName.value.slice(1)
