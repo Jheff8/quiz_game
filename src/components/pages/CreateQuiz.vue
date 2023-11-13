@@ -74,10 +74,15 @@ export default {
     },
     methods: {
         formValidity() {
+            this.removeUnnecessaryInputSpace()
             if (this.hasEmptyInputs() || this.isNameInUse() || this.isImageNotSelected() || this.hasEqualInputs()){
                 return
             }
             this.addQuiz()
+        },
+        removeUnnecessaryInputSpace() {
+            this.inputName.value = this.inputName.value.trim()
+            this.inputDescription.value = this.inputDescription.value.trim()
         },
         hasEmptyInputs() {
             if (this.inputName.value == '' || this.inputDescription.value == '') {

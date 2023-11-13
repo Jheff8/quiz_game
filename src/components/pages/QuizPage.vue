@@ -164,7 +164,7 @@ export default {
             
             answerElements.forEach(element => {
                 element.disabled = true
-                if (element.innerText == this.currentQuestion.correctAnswer) {
+                if (element.innerHTML == this.currentQuestion.correctAnswer) {
                     correctAnswerElement = element
                 }
             })

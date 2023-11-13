@@ -15,7 +15,7 @@
                             :class="['form-label', { 'label-font-color': questionInputIsFocused }, { 'text-danger': !questionInput.isValid }]">Question</label>
                         <textarea id="question"
                             :class="['form-control', 'background-secondary-bg', { 'border-danger': !questionInput.isValid }, { 'text-color': questionInput.isValid }, { 'filled': questionInput.value !== '' }]"
-                            rows="1" v-model="questionInput.value" @blur="clearValidity('questionInput')"
+                            rows="1" v-model.trim="questionInput.value" @blur="clearValidity('questionInput')"
                             @focus="questionInputIsFocused = true" ref="questionInput"
                             placeholder="Type your question"></textarea>
                     </div>
@@ -25,7 +25,7 @@
                             Answer</label>
                         <input type="text" id="correctAnswer"
                             :class="['form-control', 'background-secondary-bg', { 'text-color': correctAnswer.isValid }, { 'filled': correctAnswer.value !== '' }, { 'border-danger': !correctAnswer.isValid }]"
-                            v-model="correctAnswer.value" @blur="clearValidity('correctAnswer')"
+                            v-model.trim="correctAnswer.value" @blur="clearValidity('correctAnswer')"
                             @focus="correctAnswerIsFocused = true" placeholder="Type the correct answer"
                             ref="correctAnswerInput">
                     </div>
@@ -138,6 +138,7 @@ export default {
             this.$refs.questionInput.focus()
         },
         formValidity(addToStore = false) {
+            this.removeUnnecessaryInputSpace()
             if (this.hasEmptyInputs() || this.hasEqualInputs()) {
                 return
             }
@@ -149,6 +150,13 @@ export default {
                 return
             }
             this.addQuestion(addToStore)
+        },
+        removeUnnecessaryInputSpace() {
+            this.questionInput.value = this.questionInput.value.trim()
+            this.correctAnswer.value = this.correctAnswer.value.trim()
+            for (let i in this.wrongAnswer) {
+                this.wrongAnswer[i].value = this.wrongAnswer[i].value.trim()
+            }
         },
         hasEmptyInputs() {
             let isFilled = false
