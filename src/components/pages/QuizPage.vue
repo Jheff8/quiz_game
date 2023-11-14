@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section ref="section">
         <base-dialog :isDialogOpen="isDialogVisible" :title="dialogTitle" :secondaryText="dialogSecondaryText"
             :showSecondaryButton="isSecondaryButtonVisible" :continueBtnText="dialogContinueButtonText"
             :closeBtnText="dialogCloseButtonText" :titleColor="dialogTitleColor" @close="closeOrHome"
@@ -13,11 +13,13 @@
             </div>
             <div class="answers-wrap row m-auto">
                 <button class="container m-auto d-block mb-2 mb-lg-3  text-center text-color answer-containers lead"
-                    v-for="answers in getAnswers" :key="answers" type="button" @click="activeButton($event)">
-                    {{ answers }}
+                    v-for="(answers, index) in getAnswers" :key="index" type="button" :ref="`answerElements${index}`"
+                    @click="toggleAnswerSelection(index)" :class="{ 'active': answers.isUserAnswer }">
+                    {{ answers.text }}
                 </button>
             </div>
-            <base-button class="mt-5 mb-4" @click="verifyAnswer" id="mainButton" ref="baseButton">{{ loadButtonText }}</base-button>
+            <base-button class="mt-5 mb-4" @click="processSelectedAnswer" id="mainButton" ref="baseButton">{{ loadButtonText
+            }}</base-button>
         </div>
     </section>
 </template>
@@ -27,11 +29,9 @@ export default {
     data() {
         return {
             questions: null,
-            questionsLength: null,
             currentQuestion: null,
             questionIndex: 1,
             answers: [],
-            isAnswerRight: false,
             userPontuation: 0,
             isDialogVisible: false,
             dialogTitle: '',
@@ -127,24 +127,17 @@ export default {
             }
             return array
         },
-        activeButton(event) {
-            const element = event.target, answerElements = document.querySelectorAll('.answer-containers')
-            let updateValue = true
-
-            if (element.classList.contains('active')) {
-                updateValue = false
-            }
-
-            answerElements.forEach(currentElement => {
-                currentElement.classList.remove('active')
+        toggleAnswerSelection(index) {
+            this.answers.forEach((answer, i) => {
+                answer.isUserAnswer = i === index ? !answer.isUserAnswer : false;
             })
-
-            if (updateValue) {
-                element.classList.add('active')
-            }
         },
-        verifyAnswer() {
-            const userAnswer = document.querySelector('.active') || false
+        processSelectedAnswer() {
+            if (this.isMainButtonUnclickable()) {
+                return
+            }
+            this.setButtonAndAnswersState(true)
+            const userAnswer = this.answers.find(answer => answer.isUserAnswer)
             if (!userAnswer) {
                 this.dialogTitle = 'Please, select an answer to proceed.'
                 this.dialogSecondaryText = ''
@@ -152,40 +145,64 @@ export default {
                 this.dialogCloseButtonText = 'Close'
                 this.isSecondaryButtonVisible = false
                 this.isDialogVisible = true
+
+                this.setButtonAndAnswersState(false)
                 return
             }
-            const mainButton = this.$refs.baseButton.$refs.button
-            if (mainButton.classList.contains('unclickable')) {
-                return 
-            }
-            mainButton.classList.add('unclickable')
-            let correctAnswerElement
-            const answerElements = document.querySelectorAll('.answer-containers')
-            
-            answerElements.forEach(element => {
-                element.disabled = true
-                if (element.innerHTML == this.currentQuestion.correctAnswer) {
-                    correctAnswerElement = element
-                }
-            })
-            if (userAnswer.innerText == this.currentQuestion.correctAnswer) {
-                this.addPontuation()
+
+            if (userAnswer.isCorrectAnswer) {
+                this.addPoints()
             } else {
-                userAnswer.classList.add('wrong-answer-styling')
+                this.highlightWrongAnswer()
             }
-            correctAnswerElement.classList.add('correct-answer-styling')
+
+            this.highlightCorrectAnswer()
             setTimeout(() => {
-                mainButton.classList.remove('unclickable')
-                answerElements.forEach(element => {
-                    element.disabled = false
-                })
-                userAnswer.classList.remove('active')
-                correctAnswerElement.classList.remove('correct-answer-styling')
-                userAnswer.classList.remove('wrong-answer-styling')
+                this.setButtonAndAnswersState(false)
+                this.resetAnswerStyles()
                 this.nexQuestion()
             }, 500);
         },
-        addPontuation() {
+        highlightWrongAnswer() {
+            for (let i = 0; i < this.answers.length; i++) {
+                if (this.$refs[`answerElements${i}`][0].classList.contains('active')) {
+                    const element = this.$refs[`answerElements${i}`][0]
+                    element.classList.add('wrong-answer-styling')
+                }
+            }
+        },
+        resetAnswerStyles() {
+            this.answers = this.answers.map((answer) => answer.isUserAnswer = false)
+
+            for (let i = 0; i < this.answers.length; i++) {
+                const element = this.$refs[`answerElements${i}`][0]
+                element.classList.remove('wrong-answer-styling', 'correct-answer-styling')
+            }
+        },
+        /** Toggle the state of the main button and answer buttons based on the provided boolean argument.
+         * 
+         * @param {boolean} shouldDisable - A boolean flag indicating whether to disable or enable the buttons.
+         */
+        setButtonAndAnswersState(shouldDisable) {
+            const mainButton = this.$refs.baseButton.$refs.button
+            !!shouldDisable ? mainButton.classList.add('unclickable') : mainButton.classList.remove('unclickable')
+
+            for (let i = 0; i < this.answers.length; i++) {
+                const element = this.$refs[`answerElements${i}`][0]
+                element.disabled = !!shouldDisable
+            }
+        },
+        highlightCorrectAnswer() {
+            const correctAnswerIndex = this.answers.findIndex(answer => answer.isCorrectAnswer)
+            if (correctAnswerIndex !== -1) {
+                const element = this.$refs[`answerElements${correctAnswerIndex}`][0]
+                element.classList.add('correct-answer-styling')
+            }
+        },
+        isMainButtonUnclickable() {
+            return this.$refs.baseButton.$refs.button.classList.contains('unclickable')
+        },
+        addPoints() {
             this.userPontuation = Number(this.userPontuation) + 1
             sessionStorage.setItem(`${this.id}Pontuation`, JSON.stringify(this.userPontuation))
         },
@@ -213,7 +230,7 @@ export default {
             }, 500)
         },
         setSectionHeight() {
-            const section = document.querySelector('section')
+            const section = this.$refs.section
             section.style.minHeight = `calc(${window.innerHeight}px - 6rem)`
         }
     },
@@ -223,13 +240,13 @@ export default {
         },
         getAnswers() {
             let listOfAnswers = []
-            listOfAnswers.push(this.currentQuestion.correctAnswer)
-
+            listOfAnswers.push({ text: this.currentQuestion.correctAnswer, isUserAnswer: false, isCorrectAnswer: true })
             for (let c in this.currentQuestion.wrongAnswers) {
-                listOfAnswers.push(this.currentQuestion.wrongAnswers[c])
+                listOfAnswers.push({ text: this.currentQuestion.wrongAnswers[c], isUserAnswer: false, isCorrectAnswer: false })
             }
             listOfAnswers = this.shuffleArray(listOfAnswers)
-            return listOfAnswers
+            this.answers = listOfAnswers
+            return this.answers
         },
         loadButtonText() {
             return this.questionIndex < 15 ? 'Submit Answer' : 'Finish Quiz'
