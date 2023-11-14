@@ -39,7 +39,8 @@ export default {
             dialogCloseButtonText: '',
             dialogContinueButtonText: '',
             dialogTitleColor: '',
-            isSecondaryButtonVisible: false
+            isSecondaryButtonVisible: false,
+            formatedQuizName: null
         }
     },
     watch: {
@@ -47,27 +48,30 @@ export default {
             this.currentQuestion = this.questions[value]
         }
     },
+    
+        
     created() {
-        if (!sessionStorage.getItem(`${this.id}QuestionIndex`)) {
-            sessionStorage.setItem(`${this.id}QuestionIndex`, JSON.stringify(this.questionIndex))
+        this.formatedQuizName = this.id.toLowerCase().replaceAll(' ', '')
+        if (!sessionStorage.getItem(`${this.formatedQuizName}QuestionIndex`)) {
+            sessionStorage.setItem(`${this.formatedQuizName}QuestionIndex`, JSON.stringify(this.questionIndex))
         }
         const storedQuestions = this.$store.getters.questions
         if (storedQuestions) {
             this.questions = storedQuestions[this.id]
             this.currentQuestion = this.questions[this.questionIndex]
-            sessionStorage.setItem(`${this.id}CurrentQuestion`, JSON.stringify(this.currentQuestion))
+            sessionStorage.setItem(`${this.formatedQuizName}CurrentQuestion`, JSON.stringify(this.currentQuestion))
         }
 
-        if (sessionStorage.getItem(`${this.id}Pontuation`)) {
-            this.userPontuation = JSON.parse(sessionStorage.getItem(`${this.id}Pontuation`))
+        if (sessionStorage.getItem(`${this.formatedQuizName}Pontuation`)) {
+            this.userPontuation = JSON.parse(sessionStorage.getItem(`${this.formatedQuizName}Pontuation`))
         } else {
-            sessionStorage.setItem(`${this.id}Pontuation`, JSON.stringify(this.userPontuation))
+            sessionStorage.setItem(`${this.formatedQuizName}Pontuation`, JSON.stringify(this.userPontuation))
         }
     },
     mounted() {
         this.$store.commit('showHeader', true)
-        this.questionIndex = JSON.parse(sessionStorage.getItem(`${this.id}QuestionIndex`))
-        this.userPontuation = JSON.parse(sessionStorage.getItem(`${this.id}Pontuation`))
+        this.questionIndex = JSON.parse(sessionStorage.getItem(`${this.formatedQuizName}QuestionIndex`))
+        this.userPontuation = JSON.parse(sessionStorage.getItem(`${this.formatedQuizName}Pontuation`))
         this.setSectionHeight()
     },
     methods: {
@@ -75,8 +79,8 @@ export default {
             if (this.questionIndex < 15) {
                 this.questionIndex = Number(this.questionIndex) + 1
                 this.currentQuestion = this.questions[this.questionIndex]
-                sessionStorage.setItem(`${this.id}QuestionIndex`, JSON.stringify(this.questionIndex))
-                sessionStorage.setItem(`${this.id}CurrentQuestion`, JSON.stringify(this.currentQuestion))
+                sessionStorage.setItem(`${this.formatedQuizName}QuestionIndex`, JSON.stringify(this.questionIndex))
+                sessionStorage.setItem(`${this.formatedQuizName}CurrentQuestion`, JSON.stringify(this.currentQuestion))
             } else {
                 this.showResults()
             }
@@ -204,12 +208,12 @@ export default {
         },
         addPoints() {
             this.userPontuation = Number(this.userPontuation) + 1
-            sessionStorage.setItem(`${this.id}Pontuation`, JSON.stringify(this.userPontuation))
+            sessionStorage.setItem(`${this.formatedQuizName}Pontuation`, JSON.stringify(this.userPontuation))
         },
         closeOrHome() {
             this.closeDialog()
             if (this.dialogCloseButtonText.toLowerCase() != 'close') {
-                localStorage.setItem(`${this.id}AchievedPoints`, JSON.stringify(this.userPontuation))
+                localStorage.setItem(`${this.formatedQuizName}AchievedPoints`, JSON.stringify(this.userPontuation))
                 this.resetQuiz()
                 this.$router.replace('/home')
             }
@@ -220,8 +224,8 @@ export default {
         resetQuiz() {
             this.userPontuation = 0
             this.questionIndex = 1
-            sessionStorage.removeItem(`${this.id}QuestionIndex`)
-            sessionStorage.setItem(`${this.id}Pontuation`, JSON.stringify(this.userPontuation))
+            sessionStorage.removeItem(`${this.formatedQuizName}QuestionIndex`)
+            sessionStorage.setItem(`${this.formatedQuizName}Pontuation`, JSON.stringify(this.userPontuation))
         },
         playAgain() {
             setTimeout(() => {

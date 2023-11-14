@@ -25,16 +25,20 @@ export default {
             isDialogVisible: false,
             lastScore: null,
             percentageOfHits: null,
-            isStillPlaying: false
+            isStillPlaying: false,
+            formatedQuizName: null
         }
     },
+    created(){
+        this.formatedQuizName = this.name.toLowerCase().replaceAll(' ', '')
+    },
     mounted() {
-        if (localStorage.getItem(`${this.name.toLowerCase()}AchievedPoints`)) {
+        if (localStorage.getItem(`${this.formatedQuizName}AchievedPoints`)) {
             this.hasPastScore = true
-            this.lastScore = Number(JSON.parse(localStorage.getItem(`${this.name.toLowerCase()}AchievedPoints`)))
+            this.lastScore = Number(JSON.parse(localStorage.getItem(`${this.formatedQuizName}AchievedPoints`)))
             this.percentageOfHits = Math.round((Number(this.lastScore) / 15) * 100)
         }
-        if (sessionStorage.getItem(`${this.name.toLowerCase()}QuestionIndex`)) {
+        if (sessionStorage.getItem(`${this.formatedQuizName}QuestionIndex`)) {
             this.isStillPlaying = true
         }
     },

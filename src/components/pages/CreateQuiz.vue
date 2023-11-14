@@ -122,7 +122,7 @@ export default {
                 const allQuizzes = this.$store.getters.quizzesList
                 for (let i in allQuizzes) {
                     let name = this.inputName.value.toLowerCase()
-                    if (allQuizzes[i].name == name.charAt(0).toUpperCase() + name.slice(1)) {
+                    if (allQuizzes[i].name.toLowerCase().replaceAll(' ', '') == name.toLowerCase().replaceAll(' ', '')) {
                         this.isNameAlreadyInUse = true
                         this.inputName.isValid = false
                         return true
