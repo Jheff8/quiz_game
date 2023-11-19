@@ -112,28 +112,32 @@ span {
         width: 80vw !important;
     }
 }
+
 @media (min-width: 1025px) {
     .dialog {
-        width:  800px !important;
+        width: 800px !important;
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
-    .dialog {
-        width: 1300px !important;
-        padding: 2rem 3rem !important;
-    }
+@media (min-width: 1440px) and (min-height: 1100px) {
 
-    p {
-        font-size: 32px !important;
+    .dialog {
+        padding: 1.5rem 2.2rem;
+        width: 1000px !important;
     }
 
     h2 {
-        font-size: 85.37px !important;
+        font-size: 55.26px !important;
     }
 
-    .buttons button {
-        margin-top: 2.5rem !important;
+    p {
+        font-size: 24.06px !important;
+    }
+
+    .buttons {
+        margin-top: .8rem;
+        margin-bottom: .3rem;
+
     }
 }
 </style>

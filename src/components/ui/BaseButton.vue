@@ -134,24 +134,33 @@ button:focus-visible {
 }
 
 @media (max-width: 400px) {
+    button {
+        padding: .3rem 0;
+        width: 75%;
+    }
+
+    button.secondary-button span {
+        font-weight: 300;
+    }
+
     button span {
-        font-size: 18px !important;
+        font-size: 15px !important;
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     button {
         padding: 1rem 0 !important;
         max-width: unset;
+        border-radius: 12px !important;
     }
 
     button span {
-        font-size: 36px !important;
-        font-weight: 400;
+        font-size: 26.06px !important;
     }
 
     button:not(.secondary-button) span {
-        font-weight: 500;
+        font-weight: 450;
     }
 
 }

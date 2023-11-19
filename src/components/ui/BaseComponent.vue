@@ -8,8 +8,8 @@
             :style="{ backgroundImage: `url(${require(`../../assets/${imageName}`)})`, backgroundPosition: imagePosition }">
         </div>
         <h2 class="mt-3 mb-0 lead">{{ name }}</h2>
-        <p class="lead text-color mt-0">{{ description }}</p>
-        <div class="row justify-content-center align-items-center mt-3">
+        <p class="lead text-color mt-2">{{ description }}</p>
+        <div class="row justify-content-center align-items-center mt-0 mt-lg-3">
             <base-button @click="startQuiz" class="col-auto">{{ mainButtonText }}</base-button>
             <base-button :disabled="!hasPastScore" :title="hasPastScore ? '' : 'You have no scores yet'"
                 :secondaryButton="true" @click="showLastScore" class="col-auto">Last Score</base-button>
@@ -29,7 +29,7 @@ export default {
             formatedQuizName: null
         }
     },
-    created(){
+    created() {
         this.formatedQuizName = this.name.toLowerCase().replaceAll(' ', '')
     },
     mounted() {
@@ -73,8 +73,7 @@ export default {
 div.container {
     padding: 0;
     padding-bottom: 2rem;
-    margin: auto;
-    width: 400px;
+    width: 320px;
     max-width: 85vw;
     background-color: var(--secondary-background-color);
     border-radius: 15px;
@@ -85,10 +84,9 @@ div.container {
 h2 {
     padding: 0 1rem;
     margin: auto;
-    max-width: 380px;
+    max-width: 320px;
     font-weight: 700 !important;
-    line-height: 1.2;
-    font-size: 42.83px;
+    line-height: 1;
     letter-spacing: 0.78px;
     text-align: left;
     hyphens: auto;
@@ -100,9 +98,11 @@ p {
     padding: 0 1rem;
     margin: 0;
     margin: auto;
-    max-width: 380px;
-    min-height: 56px;
-    max-height: 90px;
+    width: 310px;
+    max-width: 310px !important;
+    min-height: 60px;
+    max-height: 60px;
+    overflow-wrap: break-word;
     font-weight: 400;
     font-size: 20px;
     line-height: 1.4;
@@ -110,21 +110,31 @@ p {
     hyphens: auto;
 }
 
+
 button {
     margin-top: 1rem !important;
 }
 
 div.image-block {
     width: 100%;
-    height: 360px;
+    height: 260px;
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: inset 0 0px 12px -7px;
 }
 
-@media (max-width: 370px) {
+@media (max-width: 400px) {
+    .container {
+        padding-bottom: 1.5rem !important;
+        width: 270px !important;
+    }
+
     div.image-block {
-        height: 270px !important;
+        height: 225px !important;
+    }
+
+    button {
+        max-width: 65% !important;
     }
 
     div.container {
@@ -132,9 +142,9 @@ div.image-block {
     }
 }
 
-@media (min-width: 370px) and (max-width: 450px) {
+@media (min-width: 400px) and (max-width: 450px) {
     div.image-block {
-        height: 280px !important;
+        height: 270px !important;
     }
 
     div.container {
@@ -142,23 +152,15 @@ div.image-block {
     }
 }
 
-@media (max-width: 340px) {
+@media (min-width: 1025px) {
     div.image-block {
-        height: 260px;
-    }
-
-    div.container {
-        padding-bottom: 1.5rem !important;
-    }
-
-    p {
-        font-size: 16px;
+        height: 280px;
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     div.image-block {
-        height: 540px;
+        height: 440px;
     }
 
     .row {
@@ -166,15 +168,22 @@ div.image-block {
     }
 
     div.container {
-        width: 700px;
+        width: 500px;
     }
 
     h2,
     p {
         margin: unset;
-        padding: 0 !important;
-        padding-left: 2.8rem !important;
-        max-width: calc(600px - 2.8rem) !important;
+        padding: 0 2.5rem !important;
+    }
+
+    h2 {
+        max-width: 500px !important;
+    }
+
+    p {
+        width: 490px !important;
+        max-width: 490px !important;
     }
 
     button:first-child {

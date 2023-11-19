@@ -53,7 +53,6 @@ section {
 .row {
     width: 95vw !important;
     margin-top: 1.5rem !important;
-    /* max-width: 1200px !important; */
 }
 
 button {
@@ -70,9 +69,9 @@ div.spinner-wrapper {
     transform: translate(-50%, -50%);
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     button {
-        width: 250px !important;
+        width: 150px !important;
     }
 }
 </style>

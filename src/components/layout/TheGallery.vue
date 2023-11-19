@@ -8,7 +8,7 @@
             <h2 class="lead text-center mt-2 text-color mb-2">Select an Image</h2>
             <div class="gallery row py-3 align-items-center justify-content-center gap-3">
                 <button type="button" v-for="image in allImagesName" :key="image.name" :id="image.name" :ref="image.name"
-                    :class="['image-content', 'btn', 'col-5', 'col-md-4', 'col-lg-3', { 'selected': image.isActive }]"
+                    :class="['image-content', 'btn', 'col-5', 'col-md-4', { 'selected': image.isActive }]"
                     @click="selectImage($event)" :style="'background-position:' + image.position" tabindex="1"></button>
             </div>
             <div class="buttons row align-items-center justify-content-center gap-3 mt-4 mb-3">
@@ -315,15 +315,22 @@ div.gallery {
     }
 }
 
+
+@media (max-height: 340px) {
+    .buttons {
+        margin-top: .5rem !important;
+    }
+}
+
 @media (max-height: 390px) {
     .buttons {
         margin-top: 1rem !important;
     }
 }
 
-@media (max-height: 340px) {
-    .buttons {
-        margin-top: .5rem !important;
+@media (min-height: 1000px) {
+    .image-content {
+        width: 200px !important;
     }
 }
 
@@ -337,15 +344,15 @@ div.gallery {
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     .container {
         max-width: 1800px !important;
-        padding: 3rem 2rem;
+        padding: 1rem 2rem 0rem 2rem !important;
         border-radius: 20px !important;
     }
 
     .image-content {
-        width: 400px;
+        width: 400px !important;
         margin: .5rem .2rem;
     }
 
@@ -365,4 +372,5 @@ div.gallery {
         margin: 3rem auto 1rem auto !important;
     }
 
-}</style>
+}
+</style>

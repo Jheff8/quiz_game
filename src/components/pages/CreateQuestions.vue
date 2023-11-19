@@ -395,6 +395,7 @@ textarea:focus-visible {
 label {
     font-size: 17px;
     color: var(--secondary-text-color);
+    transition: .3s ease-out;
 }
 
 input.filled~.label-font-color {
@@ -518,16 +519,16 @@ textarea.filled+.label-font-color {
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     .addAnswer {
-        width: 90px;
-        height: 90px;
+        width: 65px;
+        height: 65px;
         border-width: 2px;
-        font-size: 70px;
+        font-size: 55px;
     }
 
     .container {
-        width: 1800px;
+        width: 1300px;
         padding: 3rem 2rem;
     }
 
@@ -536,7 +537,7 @@ textarea.filled+.label-font-color {
     }
 
     small {
-        font-size: 30px;
+        font-size: 26.06px;
     }
 }
 </style>

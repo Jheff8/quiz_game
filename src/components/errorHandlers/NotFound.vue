@@ -79,4 +79,5 @@ a:hover::before {
     a:before {
         height: 1.2px !important;
     }
-}</style>
+}
+</style>

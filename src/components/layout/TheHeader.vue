@@ -29,7 +29,7 @@ export default {
 <style scoped>
 header {
     position: fixed;
-    padding: .8rem 1rem;
+    padding: .8rem .5rem;
     width: 100%;
     /* min-height: 51.2px !important; */
     background-color: var(--background-color);
@@ -78,7 +78,7 @@ a:not(.navbar-brand)::before {
     bottom: 3px;
     transform: translate(-50%, 0);
     width: 0;
-    height: .8px;
+    height: 1px;
     background-color: var(--primary-color);
     transition: .3s ease-out;
 }
@@ -96,14 +96,14 @@ router-link:not(.navbar-brand) {
 
 .navbar-brand {
     position: absolute;
-    left: 1rem;
+    left: .8rem;
     top: 50%;
     transform: translate(0, -50%);
     transition: .3s ease-out;
 }
 
 .navbar-brand-icon {
-    height: 35px;
+    height: 30px;
     transition: .3s ease-out;
 }
 
@@ -113,21 +113,6 @@ router-link:not(.navbar-brand) {
 
 .navbar-brand:active {
     scale: .85;
-}
-
-@media (max-width: 400px) {
-    header {
-        padding: .6rem .2rem;
-    }
-
-    .navbar-brand {
-        left: .8rem;
-    }
-
-    .navbar-brand-icon {
-        height: 28px;
-    }
-
 }
 
 @media (hover: none) {
@@ -152,6 +137,28 @@ router-link:not(.navbar-brand) {
     }
 }
 
+@media (max-width: 400px) {
+
+    router-link:not(.navbar-brand)::before,
+    a:not(.navbar-brand)::before {
+        bottom: 2px;
+    }
+
+    header {
+        padding: .6rem .2rem;
+    }
+
+    .navbar-brand {
+        left: .5rem;
+    }
+
+    .navbar-brand-icon {
+        height: 28px;
+    }
+
+}
+
+
 @media (min-width: 769px) {
 
     router-link:not(.navbar-brand)::before,
@@ -160,14 +167,15 @@ router-link:not(.navbar-brand) {
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     .navbar-brand-icon {
-        height: 58px !important;
+        height: 42px !important;
     }
 
     router-link:not(.navbar-brand)::before,
     a:not(.navbar-brand)::before {
-        height: 3px !important;
+        height: 1.5px !important;
     }
 
-}</style>
+}
+</style>

@@ -36,9 +36,9 @@ export default {
 :root {
   --text-color: rgb(231, 246, 254, .7);
   --secondary-text-color: rgb(255, 255, 255, .6);
-  --primary-color: #4558BA;
+  --primary-color: #f6d013;
   --secondary-color: #1A1A19;
-  --accent-color: #f6d013;
+  --accent-color: #4558BA;
   --background-color: #1b1b1b;
   --secondary-background-color: rgb(30, 30, 35);
 }
@@ -104,7 +104,7 @@ section {
 }
 
 h1 {
-  font-size: 51.96px !important;
+  font-size: 46.96px !important;
   line-height: .95;
   font-weight: 700 !important;
   letter-spacing: -1px !important;
@@ -113,13 +113,19 @@ h1 {
 p,
 span,
 a,
-router-link {
-  font-size: 20px !important;
+router-link,
+input,
+textarea {
+  font-size: 15px !important;
   line-height: 1.4 !important;
 }
 
+label {
+  font-size: 16px !important;
+}
+
 h2 {
-  font-size: 41.05px !important;
+  font-size: 36.05px !important;
   font-weight: 600 !important;
   letter-spacing: -1px !important;
 }
@@ -158,58 +164,48 @@ h2 {
   }
 }
 
+
 @media (max-width: 400px) {
+  .padding-top {
+    padding-top: 2rem !important;
+  }
+
   h1 {
-    font-size: 39.06px !important;
+    font-size: 35.06px !important;
   }
 
   h2 {
-    font-size: 35.25px !important;
+    font-size: 30.25px !important;
   }
 
   p,
   span,
   a,
   router-link {
-    font-size: 16px !important;
+    font-size: 13px !important;
   }
 }
 
-@media (min-width: 769px) {
-
-  input,
-  textarea {
-    font-size: 18px !important;
-  }
-
+@media (min-width: 1440px) and (min-height: 1100px) {
   h1 {
-    font-size: 56.09px !important;
+    font-size: 65.29px !important;
   }
 
   h2 {
-    font-size: 48.83px !important;
+    font-size: 55.29px !important;
   }
 
   label {
-    font-size: 18px !important;
-  }
-}
-
-@media (min-width: 1440px) and (min-height: 1200px) {
-  h1 {
-    font-size: 105.29px !important;
-  }
-
-  h2 {
-    font-size: 81.29px !important;
+    font-size: 26.06px !important;
   }
 
   p,
   span,
   a,
   router-link,
-  label {
-    font-size: 39.06px !important;
+  input,
+  textarea {
+    font-size: 24.06px !important;
   }
 
   .padding-top {
@@ -218,10 +214,11 @@ h2 {
 
   input,
   textarea {
-    padding: 1.5rem 1.5rem !important;
+    padding: .9rem 1.5rem !important;
     border-radius: 12px !important;
-    border-width: 2px !important;
-    font-size: 36.06px !important;
+    border-width: 3px !important;
+
   }
-}</style>
+}
+</style>
 

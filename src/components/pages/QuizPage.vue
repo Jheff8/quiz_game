@@ -48,8 +48,8 @@ export default {
             this.currentQuestion = this.questions[value]
         }
     },
-    
-        
+
+
     created() {
         this.formatedQuizName = this.id.toLowerCase().replaceAll(' ', '')
         if (!sessionStorage.getItem(`${this.formatedQuizName}QuestionIndex`)) {
@@ -293,10 +293,10 @@ span {
 
 .question-container {
     position: relative;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     width: 1000px;
     max-width: 85vw;
-    color: #fff !important;
+    color: var(--background-color) !important;
     background-color: var(--primary-color);
 }
 
@@ -312,7 +312,7 @@ span {
     max-width: 80vw;
     font-size: 17px;
     font-weight: 400;
-    padding: 1.5rem 0;
+    padding: 1.2rem .5rem;
     transition: all .4s ease-out, scale .3s ease-out;
 }
 
@@ -330,9 +330,8 @@ span {
 }
 
 .active {
-    color: #fff !important;
-    background-color: var(--primary-color);
-    outline: 3px solid var(--accent-color) !important;
+    color: var(--text-color) !important;
+    background-color: var(--accent-color);
 }
 
 button.correct-answer-styling {
@@ -353,21 +352,20 @@ button.wrong-answer-styling {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
     .question-container p {
         text-align: left !important;
 
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
     .question-container {
-        padding: 3rem 2rem;
-        width: 1800px;
+        padding: 2rem 1rem;
     }
 
     .row {
-        max-width: 1800px !important;
+        max-width: 1600px !important;
     }
 
     .container {
@@ -375,22 +373,16 @@ button.wrong-answer-styling {
     }
 
     .answer-containers {
-        padding: 3rem 2rem;
-        font-size: 42px;
-        width: 1400px;
-        margin-top: 1rem !important;
+        font-size: 22.06px;
+        margin-top: 5.rem !important;
     }
 
     button {
-        max-width: unset;
-    }
-
-    p {
-        font-size: 52px !important;
+        max-width: 600px;
     }
 
     span {
-        font-size: xx-large !important;
+        font-size: 22.06px !important;
     }
 }
 </style>

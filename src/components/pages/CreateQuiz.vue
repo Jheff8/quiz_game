@@ -6,7 +6,7 @@
         <div class="row justify-content-center align-items-center m-auto">
             <div class="container" style="margin: calc(.8rem * 2) auto">
                 <form class="m-auto">
-                    <h1 class="text-ligh secondary-tex text-color text-center lead">Create a Quiz</h1>
+                    <h1 class="secondary-tex text-color text-center lead">Create a Quiz</h1>
                     <div class="mt-5" style="margin-bottom: .8rem;">
                         <div class="input-box">
                             <input type="text" id="name"
@@ -27,12 +27,12 @@
                             <input type="text" id="description"
                                 :class="['form-control', 'background-secondary-bg', { 'filled': isDescriptionInputFilled }, { 'text-color': inputDescription.isValid }, { 'border-danger text-danger': !inputDescription.isValid }]"
                                 v-model.trim="inputDescription.value" @blur="clearValidity('inputDescription')"
-                                maxlength="80">
+                                maxlength="35">
                             <label for="description"
                                 :class="['form-label', 'label-font-color', 'text-secondary']">Description</label>
                         </div>
                         <small class="secondary-text-color" v-show="isDescriptionTooBig">You cannot exceed a description
-                            length of 80 characters.</small>
+                            length of 35 characters.</small>
                     </div>
                     <div style="margin-bottom: calc(.8rem * 2);">
                         <the-gallery :showGallery="isGalleryVisible" :preSelectedImage="selectedImage.value"
@@ -75,7 +75,7 @@ export default {
     methods: {
         formValidity() {
             this.removeUnnecessaryInputSpace()
-            if (this.hasEmptyInputs() || this.isNameInUse() || this.isImageNotSelected() || this.hasEqualInputs()){
+            if (this.hasEmptyInputs() || this.isNameInUse() || this.isImageNotSelected() || this.hasEqualInputs()) {
                 return
             }
             this.addQuiz()
@@ -108,11 +108,10 @@ export default {
                 return true
             }
         },
-        hasEqualInputs(){
+        hasEqualInputs() {
             if (this.inputName.value == this.inputDescription.value) {
                 this.dialogTitle = 'Quiz name and description cannot be equal.'
                 this.secondaryText = ""
-                this.selectedImage.isValid = false
                 this.isDialogVisible = true
                 return true
             }
@@ -146,7 +145,7 @@ export default {
             this.redirectToQuestions(captalizedName.toLowerCase())
 
         },
-        redirectToQuestions(pageName){
+        redirectToQuestions(pageName) {
             this.$router.replace(`/create/${pageName}`)
         },
         resetInputs() {
@@ -189,7 +188,7 @@ export default {
     },
     computed: {
         isDescriptionTooBig() {
-            if (this.inputDescription.value.length >= 80) {
+            if (this.inputDescription.value.length >= 35) {
                 return true
             } else {
                 return false
@@ -243,7 +242,6 @@ form {
 
 label {
     font-weight: 600;
-    font-size: .98rem;
     cursor: text;
 }
 
@@ -252,7 +250,7 @@ small {
     padding: 0 .5rem;
     margin: auto;
     font-weight: 200;
-    font-size: 1rem;
+    font-size: 14px;
 }
 
 h1 {
@@ -262,8 +260,6 @@ h1 {
 
 input {
     padding: .6rem .625rem;
-    /* padding-top: .6rem;
-    padding-bottom: .6rem; */
     border-color: rgba(255, 255, 255, .1);
     transition: all .5s ease-out !important;
 }
@@ -296,22 +292,21 @@ input:focus {
     transition: .5s ease-out;
 }
 
-.input-box input:focus+label {
-    left: 0;
-    top: -40%;
+.input-box input:focus+label,
+input.filled+label {
+    left: 0 !important;
+    top: -40% !important;
     scale: .95;
+    cursor: pointer;
 }
 
 .input-box input:not(.border-danger):focus+.label-font-color {
     color: var(--accent-color) !important;
 }
 
-input.filled+.label-font-color {
-    left: 0 !important;
-    top: -40% !important;
+input.filled+label {
     color: var(--secondary-text-color) !important;
-    scale: .9;
-    cursor: pointer;
+
 }
 
 .input-container input:focus,
@@ -372,11 +367,16 @@ input.border-danger+.label-font-color {
     }
 }
 
-@media (min-width: 1440px) and (min-height: 1200px) {
+@media (min-width: 1440px) and (min-height: 1100px) {
+
+    .input-box input:focus+label,
+    input.filled+label {
+        left: .200rem !important;
+    }
 
     .input-container input.filled,
     .input-container input:focus {
-        margin-top: 5.5rem;
+        margin-top: 4.4rem;
     }
 
     h1 {
@@ -384,7 +384,7 @@ input.border-danger+.label-font-color {
     }
 
     .input-box label {
-        left: 1.5rem;
+        left: 1.5rem !important;
     }
 
     .input-container {
@@ -396,16 +396,16 @@ input.border-danger+.label-font-color {
         border-radius: 20px;
         padding: 3rem 2rem;
         max-width: 1800px;
-
     }
 
     .btn-select-image {
-        width: 340px !important;
+        width: 250px !important;
         margin-bottom: 5em !important;
     }
 
     small {
-        font-size: 35px;
+        font-size: 26.06px;
         font-weight: 300;
     }
-}</style>
+}
+</style>
